@@ -1,0 +1,10 @@
+<p>
+    Commenter: <%=comment.commenter%>
+</p>
+<p>
+    Content: <%=comment.content%> 
+</p>
+<%=link_to "delete", [comment.user, comment.post, comment], data:{
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+}%>
