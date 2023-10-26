@@ -1,0 +1,13 @@
+<h1>User lists</h1>
+The app has <%=User.public_count%> users and counting!
+<ul>
+    <% @users.each do |user| %>
+        <%unless user.archived?%>
+            <li>
+                <%=link_to user.username, user%>
+            </li>
+        <%end%>
+    <% end %>
+    
+</ul>
+<%=link_to "Create new user", new_user_path%>

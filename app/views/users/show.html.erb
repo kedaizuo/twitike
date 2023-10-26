@@ -1,0 +1,21 @@
+<h1>Show a user</h1>
+<h2>Username: <%=@user.username%></h2>
+<p>Email: <%=@user.email%></p>
+<ul>
+    <li>
+        <%=link_to "edit", edit_user_path(@user)%>
+    </li>
+    <li>
+        <%=link_to "delete", user_path(@user), data:{
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+        }%>
+    </li>
+</ul>
+<%=link_to "Back", users_path%>
+<br>
+<h2>All posts</h2>
+<%=render @user.posts%>
+<br>
+<h2>Add a post</h2>
+<%=render "posts/form"%>

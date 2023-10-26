@@ -1,0 +1,21 @@
+<%=form_with model: [@user, @user.posts.build] do |form|%>
+    <p>
+        <%=form.label :poster%><br>
+        <%=form.text_field :poster%>
+
+    </p>
+    <p>
+        <%=form.label :content%><br>
+        <%=form.text_area :content%>
+
+    </p>
+    <div>
+        <%=form.label :status%><br>
+        <%=form.select :status, Visible::VALID_STATUSES, selected: 'public'%>
+    </div>
+    <p>
+        <%=form.submit%>
+        
+
+    </p>
+<%end%>

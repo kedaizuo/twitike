@@ -1,0 +1,14 @@
+<p>
+    <strong>Poster: </strong>
+    <%=post.poster%>
+</p>
+<p>
+    <strong>Content: </strong>
+    <%=post.content%>
+</p>
+<p>
+    <%=link_to "delete", [post.user, post], data:{
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+    }%>
+</p>
