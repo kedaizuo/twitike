@@ -3,8 +3,9 @@
     <%=post.poster%>
 </p>
 <p>
-    <strong>Content: </strong>
-    <%=post.content%>
+    <strong>Title: </strong>
+    <%=post.title%>
+    <%=link_to "Go to the post", user_post_path(post.user, post)%>
 </p>
 <p>
     <%=link_to "delete", [post.user, post], data:{

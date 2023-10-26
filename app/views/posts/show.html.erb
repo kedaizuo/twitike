@@ -1,0 +1,20 @@
+<h1>Hi <%=@user.username%>, this is your post</h1>
+<h2>Title: <%=@post.title%></h2>
+<h2>Content:</h2>
+<p><%=@post.content%></p>
+<ul>
+    <li>
+        <%=link_to "Edit", edit_user_post_path(@user, @post)%>
+    </li>
+    <li>
+        <%=link_to "Back to user profile", @user%>
+    </li>
+    <li>
+        <%=link_to "delete", [@user, @post], data:{
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+        }%>
+    </li>
+</ul>
+
+<br>

@@ -14,8 +14,7 @@
 </ul>
 <%=link_to "Back", users_path%>
 <br>
-<h2>All posts</h2>
+<h2>All posts:<%=@user.posts.where(status:'public').count%></h2>
 <%=render @user.posts%>
 <br>
-<h2>Add a post</h2>
-<%=render "posts/form"%>
+<%=link_to "Create new post", new_user_post_path(@user)%>
