@@ -1,15 +1,39 @@
-<p>
-    <strong>Poster: </strong>
-    <%=post.poster%>
-</p>
-<p>
-    <strong>Title: </strong>
-    <%=post.title%>
-    <%=link_to "Go to the post", user_post_path(post.user, post)%>
-</p>
-<p>
-    <%=link_to "delete", [post.user, post], data:{
-        turbo_method: :delete,
-        turbo_confirm: "Are you sure?"
-    }%>
-</p>
+<style>
+    .post-container {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .post-content {
+        margin: 10px 0;
+    }
+
+    .post-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+
+<div class="post-container">
+    <div class="post-header">
+        <p><strong>Poster:</strong> <%= post.poster %></p>
+        <p><%= link_to "Delete", [post.user, post], data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></p>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <strong>Title:</strong> <%= post.title %> 
+            <%= link_to "Go to the post", user_post_path(post.user, post) %>
+        </p>
+    </div>
+</div>

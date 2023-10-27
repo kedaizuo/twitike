@@ -1,41 +1,108 @@
-<%=form_with model: user do |form|%>
-    <div>
-        <%=form.label :username%> <br>
-        <%=form.text_field :username%>    
-        <% user.errors.full_messages_for(:username).each do |message|%>
-            <div>
-                <%=message%>
-            </div> 
-        <%end%>
-    </div>
-    <div>
-        <%=form.label :email%> <br>
-        <%=form.text_field :email%>   
-        <% user.errors.full_messages_for(:email).each do |message|%>
-            <div>
-                <%=message%>
-            </div> 
-        <%end%>  
-    </div>
-    <div>
-        <%=form.label :password%> <br>
-        <%=form.text_field :password%>   
-        <% user.errors.full_messages_for(:password).each do |message|%>
-            <div>
-                <%=message%>
-            </div> 
-        <%end%>  
-    </div>
-    <div>
-        <%=form.label :status%><br>
-        <%=form.select :status, Visible::VALID_STATUSES, selected: user.status || 'public'%>
-    </div>
-    <div>
-        <%=form.submit%>
-    </div>
-    <div>
-        <%=link_to "Back", users_path%>
-    </div>
-   
+<style>
+    .user-form-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-<%end%>
+    .user-form-container div {
+        margin-bottom: 20px;
+    }
+
+    .user-form-container label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .user-form-container input[type="text"],
+    .user-form-container input[type="password"],
+    .user-form-container select {
+        width: 95%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+    }
+
+    .error-message {
+        color: #D32F2F;
+        background-color: #FFCDD2;
+        padding: 5px;
+        margin-top: 5px;
+        border-radius: 4px;
+    }
+
+    .back-link,
+    .user-form-container input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: inherit;  
+        font-size: inherit;  
+        line-height: inherit;  
+        display: inline-block;
+    }
+
+    .back-link:hover,
+    .user-form-container input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<div class="user-form-container">
+    <%= form_with model: user do |form| %>
+
+        <div>
+            <%= form.label :username %>
+            <%= form.text_field :username, placeholder: "Username", class: "input-field" %>
+            <% user.errors.full_messages_for(:username).each do |message| %>
+                <div class="error-message">
+                    <%= message %>
+                </div>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.label :email %>
+            <%= form.text_field :email, placeholder: "Email", class: "input-field" %>
+            <% user.errors.full_messages_for(:email).each do |message| %>
+                <div class="error-message">
+                    <%= message %>
+                </div>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.label :password %>
+            <%= form.password_field :password, placeholder: "Password", class: "input-field" %>
+            <% user.errors.full_messages_for(:password).each do |message| %>
+                <div class="error-message">
+                    <%= message %>
+                </div>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.label :status %>
+            <%= form.select :status, Visible::VALID_STATUSES, selected: user.status || 'public' %>
+        </div>
+
+        <div>
+            <%= form.submit "Save" %>
+            <%if @user.id == nil%>
+                <%= link_to "Back", root_path, class: "back-link" %>
+            <%else%>
+                <%= link_to "Back", @user, class: "back-link" %>
+            <%end%>
+        </div>
+
+    <% end %>
+</div>

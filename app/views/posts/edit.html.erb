@@ -1,2 +1,16 @@
-<h1>Hi <%=@user.username%>,edit your post</h1>
-<%=render "form"%>
+<style>
+    .centered-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        text-align: center;
+    }
+</style>
+<div class="centered-content">
+    <h1>Hi <%=@user.username%>,edit your post</h1>
+    
+</div>
+<%= render "form" %>
+

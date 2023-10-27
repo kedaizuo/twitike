@@ -1,24 +1,144 @@
-<h1>Hi <%=@user.username%>, this is your post</h1>
-<h2>Title: <%=@post.title%></h2>
-<h2>Content:</h2>
-<p><%=@post.content%></p>
-<ul>
-    <li>
-        <%=link_to "Edit", edit_user_post_path(@user, @post)%>
-    </li>
-    <li>
-        <%=link_to "Back to user profile", @user%>
-    </li>
-    <li>
-        <%=link_to "delete", [@user, @post], data:{
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?"
-        }%>
-    </li>
-</ul>
+<style>
+    
 
-<br>
-<p>All comments:</p>
-<%=render  @post.comments%>
-<p>Create a new comment</p>
-<%=render "comments/form"%>
+    .post-show-container {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+    }
+
+    .post-title, .post-content, .post-actions, .post-comments {
+        margin-bottom: 20px;
+    }
+
+    .post-actions {
+        list-style-type: none;
+        display: flex;
+        gap: 15px;
+        padding-left: 0;
+    }
+
+    .post-comments-title {
+        font-weight: bold;
+    }
+
+    .new-comment-title {
+        margin-top: 40px;
+        font-weight: bold;
+    }
+    .post-card {
+        background-color: #f7f7f7;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-card .post-title h2 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+        color: #777;
+    }
+
+    .post-card .post-content {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .post-card .post-actions {
+        list-style-type: none;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        padding-left: 0;
+    }
+
+    .post-card .post-actions li {
+        margin: 0;
+    }
+
+    .post-card .post-actions a {
+        background-color: #007BFF;
+        padding: 8px 12px;
+        border-radius: 5px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .post-card .post-actions a:hover {
+        background-color: #0056b3;
+    }
+
+   
+    .post-card .post-actions .back-link, 
+    .post-card .post-actions .delete-link {
+        background-color: #6c757d;
+    }
+
+    .post-card .post-actions .back-link:hover, 
+    .post-card .post-actions .delete-link:hover {
+        background-color: #4e555b;
+    }
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .left-content {
+        flex: 3; 
+        margin-right: 20px;
+    }
+
+    .new-comment-container {
+        flex: 1; 
+        align-self: flex-start;
+        background-color: #f7f7f7;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="post-show-container">
+    <h1>Hi <%= @user.username %>, this is your post</h1>
+
+    <div class="main-content">
+        <div class="left-content">
+            <div class="post-card">
+                <div class="post-title">
+                    <h2><%= @post.title %></h2>
+                </div>
+
+                <div class="post-content">
+                    <p><%= @post.content %></p>
+                </div>
+
+                <ul class="post-actions">
+                    <li><%= link_to "Edit", edit_user_post_path(@user, @post) %></li>
+                    <li><%= link_to "Back to user profile", @user, class: "back-link" %></li>
+                    <li><%= link_to "Delete", [@user, @post], class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></li>
+                </ul>
+            </div>
+
+            <div class="post-comments">
+                <%if @post.comments.length != 0%>
+                    <p class="post-comments-title">All comments:</p>
+                    <%= render @post.comments %>
+                <%else%>
+                    <p class="post-comments-title">Leave your comment!</p>
+                <%end%>
+            </div>
+        </div>
+        <div class="new-comment-container">
+            <p class="new-comment-title">Create a new comment</p>
+            <%= render "comments/form" %>
+        </div>
+    </div>
+</div>

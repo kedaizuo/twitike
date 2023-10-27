@@ -1,10 +1,50 @@
-<p>
-    Commenter: <%=comment.commenter%>
-</p>
-<p>
-    Content: <%=comment.content%> 
-</p>
-<%=link_to "delete", [comment.user, comment.post, comment], data:{
-    turbo_method: :delete,
-    turbo_confirm: "Are you sure?"
-}%>
+<style>
+    
+
+    .comment-card {
+        background-color: #f7f7f7;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+    .comment-card .commenter {
+        font-size: 1em;
+        color: #777;
+        margin-bottom: 10px;
+    }
+
+    .comment-card .comment-content {
+        background-color: #f0f0f0;
+        padding: 8px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .comment-card .delete-link {
+        background-color: #e74c3c;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .comment-card .delete-link:hover {
+        background-color: #c0392b;
+    }
+</style>
+
+<div class="comment-card">
+    <div class="commenter">
+        Commenter: <%= comment.commenter %>
+    </div>
+    
+    <div class="comment-content">
+        <%= comment.content %>
+    </div>
+
+    <%= link_to "Delete", [comment.user, comment.post, comment], class: "delete-link", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+</div>

@@ -1,13 +1,77 @@
-<%=form_with model:[@user, @post, @post.comments.build] do |form|%>
-<p>
-    <%=form.label :commenter%> <br>
-    <%=form.text_field :commenter%>
-</p>
-<p>
-    <%=form.label :content%> <br>
-    <%=form.text_area :content%>
-</p>
-<p>
-    <%=form.submit%>
-</p>
-<%end%>
+<style>
+    
+
+    .comment-form-card {
+        background-color: #f7f7f7;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+        max-width: 500px; 
+    }
+
+    .comment-form-card label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .comment-form-card input[type="text"], 
+    .comment-form-card textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .comment-form-card input[type="submit"] {
+        background-color: #3498db;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .comment-form-card input[type="submit"]:hover {
+        background-color: #2980b9;
+    }
+    .comment-input {
+        width: 100%;         
+        box-sizing: border-box; 
+        margin-bottom: 10px;   
+        padding: 5px;         
+        border: 1px solid #ccc;
+        border-radius: 5px;    
+    }
+    .error-message {
+        color: #D32F2F;
+        background-color: #FFCDD2;
+        padding: 5px;
+        margin-top: 5px;
+        border-radius: 4px;
+    }
+
+</style>
+
+<div class="comment-form-card">
+    
+    <%= form_with model: [@user, @post, @post.comments.build] do |form| %>
+        <p>
+            <%= form.label :commenter %>
+            <%= form.text_field :commenter, class: 'comment-input' %>
+            
+        </p>
+        <p>
+            <%= form.label :content %>
+            <%= form.text_area :content, class: 'comment-input' %>
+        </p>
+        <p>
+            <%= form.submit "Submit Comment" %>
+        </p>
+    <% end %>
+</div>

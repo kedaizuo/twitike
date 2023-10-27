@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
-  http_basic_authenticate_with name:"kk", password:"kk", only: [:destroy]
+  #http_basic_authenticate_with name:"kk", password:"kk", only: [:destroy]
   def show
     @user =  User.find(params[:user_id])
     @post = @user.posts.find(params[:id])
+
   end
   def new
     @user = User.find(params[:user_id])
@@ -11,6 +12,7 @@ class PostsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @post = @user.posts.build(post_params)
+    @post.poster = @user.username
     if @post.save
       redirect_to @user
     else
@@ -41,6 +43,6 @@ class PostsController < ApplicationController
   end
   private
     def post_params
-      params.require(:post).permit(:poster, :content, :status, :title)
+      params.require(:post).permit(:content, :status, :title)
     end
 end

@@ -1,25 +1,99 @@
-<%=form_with model: [@user, @post] do |form|%>
-    <p>
-        <%=form.label :poster%><br>
-        <%=form.text_field :poster%>
+<style>
+    .custom-form-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px 20px 20px 20px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-    </p>
-    <p>
-        <%=form.label :title%> <br>
-        <%=form.text_field :title%>
-    </p>
-    <p>
-        <%=form.label :content%><br>
-        <%=form.text_area :content%>
+    .custom-form-container p {
+        margin-bottom: 20px;
+    }
 
-    </p>
-    <div>
-        <%=form.label :status%><br>
-        <%=form.select :status, Visible::VALID_STATUSES, selected: 'public'%>
-    </div>
-    <p>
-        <%=form.submit%>
+    .custom-form-container label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .custom-form-container input[type="text"],
+    .custom-form-container textarea,
+    .custom-form-container select {
+        width: 95%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+    }
+
+    .back-link, .custom-form-container input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: inherit;  
+        font-size: inherit;  
+        line-height: inherit;  
+        display: inline-block;
+    }
+
+   
+    .back-link:hover, .custom-form-container input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    .error-message {
+        color: #D32F2F;
+        background-color: #FFCDD2;
+        padding: 5px;
+        margin-top: 5px;
+        border-radius: 4px;
+    }
+
+    
+    
+
+</style>
+
+<div class="custom-form-container">
+    <%= form_with model: [@user, @post] do |form| %>
         
-
-    </p>
-<%end%>
+        <p>
+            <%= form.label :title %>
+            <%= form.text_field :title, placeholder: "Enter title" %>
+            <% @post.errors.full_messages_for(:title).each do |message| %>
+                <div class="error-message">
+                    <%= message %>
+                </div>
+            <% end %>
+        </p>
+        
+        <p>
+            <%= form.label :content %>
+            <%= form.text_area :content, placeholder: "Enter content", rows: 5 %>
+            <% @post.errors.full_messages_for(:content).each do |message| %>
+                <div class="error-message">
+                    <%= message %>
+                </div>
+            <% end %>
+        </p>
+        
+        <div>
+            <%= form.label :status %>
+            <%= form.select :status, Visible::VALID_STATUSES, selected: 'public' %>
+        </div>
+        
+        <p>
+            <%= form.submit "Submit" %>
+            <%if @post.id == nil%>
+                <%= link_to "Back", @user, class: "back-link" %>
+            <%else%>
+                <%= link_to "Back", user_post_path(@user, @post), class: "back-link" %>
+            <%end%>
+        </p>
+        
+    <% end %>
+</div>
