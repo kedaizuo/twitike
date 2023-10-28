@@ -42,6 +42,33 @@
         background-color: #e0e0e0;
         margin: 20px 0;
     }
+    .btn {
+        display: inline-block;
+        padding: 8px 15px;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007BFF;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
     
 </style>
 
@@ -52,21 +79,20 @@
             <p><strong>Email:</strong> <%= @user.email %></p>
         </div>
         <ul class="user-actions">
-            <li><%= link_to "Edit", edit_user_path(@user) %></li>
-            <li><%= link_to "Delete", user_path(@user), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></li>
+            <li><%= link_to "Edit", edit_user_path(@user),class:"btn btn-primary" %></li>
+            <li><%= link_to "Delete", user_path(@user),class:"btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></li>
         </ul>
     </div>
-
-    <div class="post-details">
-        <h2>All posts:</h2>
-        <p class="post-count"><%= @user.posts.where(status: 'public').count %> public posts</p>
-        <%= render @user.posts %>
-        
-        
-        <div class="divider"></div>
-
-        <%= link_to "Create new post", new_user_post_path(@user), class: "create-post-link" %>
-    </div>
-
-    <%= link_to "Back", users_path, class: "back-link" %>
+    <%= link_to "Create new post", new_user_post_path(@user), class: "create-post-link btn btn-primary" %>
+    <%= link_to "Back", users_path, class: "back-link btn btn-danger" %>
+    <div class="divider"></div>
+    <% if @user.posts.where(status: 'public').count !=0%>
+        <div class="post-details">
+            <h2>All posts:</h2>
+            <p class="post-count"><%= @user.posts.where(status: 'public').count %> public posts</p>
+            <%= render @user.posts %>
+        </div>
+    
+    <%end%>
+    
 </div>
